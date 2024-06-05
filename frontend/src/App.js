@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Task from './components/Tarea';
 import UserData from './components/UserData';
+import Historial from './components/Cuenta';
 import Cuenta from './components/Cuenta';
 
 
@@ -21,11 +22,16 @@ function App() {
     
     <div>
       <Routes>
+      
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/tarea' element={<Task />} />
-        <Route path='/user_data/:id' element={<Cuenta />} />
+        <Route path='/historico' element={<UserData/>} />   
         <Route path='/balance' element={<Balance/>} />
+        <Route path='/user_data/:id' element={< Cuenta/>} />
+       
+       
+       
       </Routes>
       
     </div>
