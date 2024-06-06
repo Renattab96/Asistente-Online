@@ -3,7 +3,6 @@
 // import {useNavigate} from 'react-router-dom'
 // import axios from 'axios';
 
-
 // const Balance = () => {
 
 //   // const {id} = useParams()
@@ -30,24 +29,20 @@
 //       monto,
 //       periodo
 //       // status
-      
-   
+
 //     },{withCredentials:true, Credential:'include'})
 //     .then((res)=>{
 //         console.log(res)
-//         navigate(`/balance/`)  
+//         navigate(`/balance/`)
 //     })
 //     .catch((err)=>{
 //          return err.status(400)
 //     })
-//   }     
-
-
- 
+//   }
 
 //   return (
 //     <div>
-//         
+//
 //       <div className="flex flex-wrap h-[500vh]">
 //         {/* carga de datos */}
 //         <div className="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/3 mb-4 bg-white">
@@ -70,7 +65,7 @@
 //                   <p className="text-2xl sm:text-1xl md:text-1xl xl:text-1xl 1xl:text-3xl font-normal text-black">Egreso</p>
 //                   <p className="text-2xl sm:text-1xl md:text-1xl xl:text-1xl 1xl:text-3xl font-bold text-green-800 dark:text-white">-150.000</p>
 //                 </div>
-//                </div> 
+//                </div>
 //               {/* Inputs de conceptos  */}
 //                 <div className='flex flex-col w-full' >
 
@@ -104,15 +99,14 @@
 //           </div>
 
 //         </div>
-//         historial de la carga de datos 
+//         historial de la carga de datos
 //         <div className="w-full sm:w-full md:w-full lg:w-2/3 xl:w-2/3 mb-4 bg-white">
 //             <div className=' flex w-full justify-center align-center m-2 text-2xl' >
 //             </div>
 //           tarjeta del historial
 //         <div className="flex flex-col justify-center items-stretch mt-10 m-10">
-            
-//             <div className=' overflow-auto border-3 border-blue-900 bg-white shadow-4xl flex w-full flex-col items-center rounded-[20px] w-[550px] mx-auto m-2 p- bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none' >
 
+//             <div className=' overflow-auto border-3 border-blue-900 bg-white shadow-4xl flex w-full flex-col items-center rounded-[20px] w-[550px] mx-auto m-2 p- bg-white bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none' >
 
 //             <h2 className="text-blue-900 " >Historial </h2>
 
@@ -128,36 +122,36 @@
 //           </div>
 
 //         </div>
-        
+
 //       </div>
 //     </div>
 //   )
 // }
 
 // export default Balance;
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../styles/style.css";
-import Navbar from './Navbar';
-
-
+import Navbar from "./Navbar";
+import { prueba } from "../utilities/utilities";
 
 const Balance = () => {
-  const [concepto, setConcepto] = useState('');
-  const [monto, setMonto] = useState('');
-  const [periodo, setPeriodo] = useState('');
-  const [tipo, setTipo] = useState('Ingreso');
+  const [concepto, setConcepto] = useState("");
+  const [monto, setMonto] = useState("");
+  const [periodo, setPeriodo] = useState("");
+  const [tipo, setTipo] = useState("Ingreso");
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/pagos/', { withCredentials: true })
-      .then(res => {
+    axios
+      .get("http://localhost:8000/api/pagos/", { withCredentials: true })
+      .then((res) => {
         console.log(res);
         setTasks(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, []);
@@ -166,68 +160,116 @@ const Balance = () => {
     e.preventDefault();
     const nuevoPago = { concepto, monto, periodo, tipo };
 
-    axios.post('http://localhost:8000/api/crearpagos', nuevoPago, { withCredentials: true, Credential: 'include' })
-      .then(res => {
+    axios
+      .post("http://localhost:8000/api/crearpagos", nuevoPago, {
+        withCredentials: true,
+        Credential: "include",
+      })
+      .then((res) => {
         console.log(res);
-        navigate('/balance');
+        navigate("/balance");
         setTasks([...tasks, res.data]); // Actualiza la lista de tareas con el nuevo pago
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
   return (
     <>
-    <Navbar/>
-    <div className="balance-page">
-      
-      <form onSubmit={formSubmitHandler} className="form-container">
-      <h3 className=" text-blue-900 ">  <strong>Gastos: </strong>   </h3>
-        <div className='mt-6 mb-3 flex flex-wrap gap-10 md:!gap-5'>
-          <label>Concepto</label>
-          <input className='text-1xl sm:text-1xl md:text-1xl xl:text-2xl 2xl:text-2xl font-normal text-blue-900'
-            type="text"  value={concepto}  onChange={(e) => setConcepto(e.target.value)}
-          />
-        </div>
-        <div className='mt-6 mb-3 flex flex-wrap gap-10 md:!gap-5'>
-          <label>Monto</label>
-          <input className='text-1xl sm:text-1xl md:text-1xl xl:text-2xl 2xl:text-2xl font-normal text-blue-900'
-            type="text"  value={monto} onChange={(e) => setMonto(e.target.value)}
-          />
-        </div>
-        <div className='mt-6 mb-3 flex flex-wrap gap-10 md:!gap-5'>
-          <label>Periodo</label>
-          <input className='text-1xl sm:text-1xl md:text-1xl xl:text-2xl 2xl:text-2xl font-normal text-blue-900'
-            type="moth"
-            value={periodo}
-            onChange={(e) => setPeriodo(e.target.value)}
-          />
-        </div>
-        <div className="buttons-container">
-          <button type="button" onClick={() => setTipo('Ingreso')} className="btn-ingreso">Ingreso</button>
-          <button type="button" onClick={() => setTipo('Egreso')} className="btn-egreso">Egreso</button>
-        </div>
-        {/* <button type="submit" className="btn-submit">Agregar Tarea</button> */}
-      </form>
+      <Navbar />
 
-      <div className="task-container">
-        <h2>Historial</h2>
-        {tasks.map(task => (
-          <div
-            key={task._id}
-            className={`card ${task.tipo === 'Ingreso' ? 'ingreso' : 'egreso'}`}
+     
+            {/* <h1 className="text-3xl font-bold border-blue-900 rounded-md dark:text-gray-300 dark:border-gray-600">GASTOS </h1> */}
+       <br />
+      <div className="grid grid-cols-[40%,60%] gap-4 px-4">
+   
+        <div className="flex justify-center">
+        {/* <br />
+            <h1 className="text-3xl font-bold border-blue-900 rounded-md dark:text-gray-300 dark:border-gray-600">GASTOS </h1>
+        BR */}
+          <form
+            onSubmit={formSubmitHandler}
+            className="w-[32rem] border-2 border-blue-300 p-4 rounded-lg flex flex-col items-center gap-y-8"
           >
-            <h4>{task.concepto}</h4>
-            <p>Gs.{task.monto}</p>
-          </div>
-        ))}
-      </div>
-    </div>
+            <h2 className="font-semibold text-blue-400">
+              Balance de Saldo Diario
+            </h2>
+            <div className="gap-y-4 flex flex-col">
+              <div className="w-64 grid grid-cols-2 gap-x-8">
+                <h3 className=" text-blue-900 font-semibold text-left">Ingresos</h3>
+                <p className="text-green-400 font-semibold">Gs. 200.000</p>
+              </div>
+              <div className="w-64 grid grid-cols-2 gap-x-8">
+                <h3 className=" text-blue-900 font-semibold text-left">Egresos</h3>
+                <p className="text-red-400 font-semibold">Gs. 200.000</p>
+              </div>
+            </div>
 
+            <div className="grid grid-cols-[35%,70%] gap-y-4 items-center">
+              
+                <label className="font-bold text-blue-400">Concepto</label>
+                <input
+                  className="text-base font-normal text-blue-900 border-2 border-black rounded-lg px-3 h-9 flex "
+                  type="text"
+                  value={concepto}
+                  onChange={(e) => setConcepto(e.target.value)}
+                />
+              
+                <label className="font-bold text-blue-400">Monto</label>
+                <input
+                  className="text-base font-normal text-blue-900 border-2 border-black rounded-lg px-3 h-9 flex "
+                  type="text"
+                  value={monto}
+                  onChange={(e) => setMonto(e.target.value)}
+                />
+              
+                <label className="font-bold text-blue-400">Periodo</label>
+                <input
+                  className="text-base font-normal text-blue-900 border-2 border-black rounded-lg px-3 h-9 flex "
+                  type="moth"
+                  value={periodo}
+                  onChange={(e) => setPeriodo(e.target.value)}
+                />
+            </div>
+
+            <div className="flex gap-x-14">
+              <button
+                type="button"
+                onClick={() => setTipo("Ingreso")}
+                className="btn-ingreso"
+              >
+                Ingreso
+              </button>
+              <button
+                type="button"
+                onClick={() => setTipo("Egreso")}
+                className="btn-egreso"
+              >
+                Egreso
+              </button>
+            </div>
+            {/* <button type="submit" className="btn-submit">Agregar Tarea</button> */}
+          </form>
+
+        </div>
+
+        <div className="w-[32rem]">
+          <h2>Historial</h2>
+          {tasks.map((task) => (
+            <div
+              key={task._id}
+              className={`card ${task.tipo === "Ingreso" ? "ingreso" : "egreso"
+                }`}
+            >
+              <h4>{task.concepto}</h4>
+              <p>Gs.{task.monto}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
 
 export default Balance;
-

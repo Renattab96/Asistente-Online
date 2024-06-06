@@ -5,9 +5,10 @@ import Balance from './components/Balance';
 import Login from './components/Login';
 import Register from './components/Register';
 import Task from './components/Tarea';
-import UserData from './components/UserData';
+import UserData from './components/Historic';
 import Historial from './components/Cuenta';
 import Cuenta from './components/Cuenta';
+import Historic from './components/Historic';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/tarea' element={<Task />} />
-        <Route path='/historico' element={<UserData/>} />   
+        <Route path='/historico' element={<Historic/>} />   
         <Route path='/balance' element={<Balance/>} />
         <Route path='/user_data/:id' element={< Cuenta/>} />
        

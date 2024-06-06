@@ -60,7 +60,7 @@ const Login = () => {
               <button type="submit" className="block w-full bg-orange-500 mt-5 py-4 rounded-2xl hover:bg-orange-700 hover:-translate-y-1 transition-all duration-500 text-white text-2xl font-semibold mb-2">Acceder</button>
               <div className="flex justify-between mt-4">
               </div>
-              {/* <Link to='/login' ><p className="text-sm font-normal text-blue-900 mb-8">No posee una cuenta? Empecemos</p></Link> */}
+              {/* <Link to='/login' ><p className="text-sm font-normal text-blue-900 mb-8"> Soporte </p></Link> */}
             </form>
             </div>
             

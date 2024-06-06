@@ -5,6 +5,7 @@ import moment from 'moment';
 import BtnTareaProgress from './BtnTareaProgress';
 import BtnTareaCompleta from './BtnTareaCompleta';
 import BtnTareaEliminada from './BtnTareaEliminada';
+import BtnTareaReagendar from './BtnTareaReagendar '
 
 const Task = () => {
   // Variables de estado
@@ -116,7 +117,10 @@ const Task = () => {
                               <h5><strong>Hora de Notificación:</strong> {moment(pro.hora, 'HH:mm').format('HH:mm')}</h5>
                               <h5><strong>Tipo:</strong> {pro.claseTarea}</h5>
                               <h6><strong>Mas Informacion:</strong> {pro.descripcion}</h6> 
-                              <BtnTareaEliminada projectId={pro._id} Update={fetchTareas} />
+                              <BtnTareaEliminada projectId={pro._id} Update={fetchTareas}/>
+                              <BtnTareaReagendar  projectId={pro._id} Update={fetchTareas} />
+                              {/* Agregar la logica , y crear componentes */}
+                           
                             </div>
                           )}
                         </div>
